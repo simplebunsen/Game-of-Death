@@ -16,7 +16,10 @@ public class UniverseHandler {
         this.universe = new boolean[n][n];
         this.universeSize = n;
 
-        Random random = new Random(s);
+        Random random;
+        if (s == -1) random = new Random();
+        else random = new Random(s);
+
         for (int row = 0; row < universeSize; row++) {
             for (int spot = 0; spot < universeSize; spot++) {
                 universe[row][spot] = random.nextBoolean(); //brain bending order of row and col
@@ -105,5 +108,15 @@ public class UniverseHandler {
             }
             System.out.println();
         }
+    }
+
+    public int getCurrentAlive() {
+        int count = 0;
+        for (boolean[] row : universe) {
+            for (boolean spot : row) {
+                if (spot) count++;
+            }
+        }
+        return count;
     }
 }
