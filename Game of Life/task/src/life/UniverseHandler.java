@@ -106,39 +106,4 @@ public class UniverseHandler {
             System.out.println();
         }
     }
-
-    enum Cardinal {NORTH, NORTH_EAST, EAST, SOUTH_EAST, SOUTH, SOUTH_WEST, WEST, NORTH_WEST, NOTHING_SPECIAL}
-
-    class Position {
-        public int row;
-        public int spot;
-
-        public boolean isNorthEdge;
-        public boolean isEastEdge;
-        public boolean isSouthEdge;
-        public boolean isWestEdge;
-
-        public Position(int row, int spot) {
-            this.row = row;
-            this.spot = spot;
-
-            this.isNorthEdge = row == 0;
-            this.isEastEdge = spot == universeSize - 1;
-            this.isSouthEdge = row == universeSize - 1;
-            this.isWestEdge = spot == 0;
-        }
-
-        public Cardinal getCardinalPosition() {
-            if (isNorthEdge && isEastEdge) return Cardinal.NORTH_EAST;
-            if (isNorthEdge && isWestEdge) return Cardinal.NORTH_WEST;
-            if (isSouthEdge && isEastEdge) return Cardinal.SOUTH_EAST;
-            if (isSouthEdge && isWestEdge) return Cardinal.SOUTH_WEST;
-            if (isNorthEdge)               return Cardinal.NORTH;
-            if (isSouthEdge)               return Cardinal.SOUTH;
-            if (isEastEdge)                return Cardinal.EAST;
-            if (isWestEdge)                return Cardinal.WEST;
-
-            return Cardinal.NOTHING_SPECIAL;
-        }
-    }
 }
