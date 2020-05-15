@@ -5,9 +5,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        clearScreen();
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
+        int n = 20; //scanner.nextInt();
         long s = -1; //scanner.nextLong();
         int m = 10;
 
@@ -18,6 +17,7 @@ public class Main {
             System.out.printf("Generation #%d \n", i + 1);
             System.out.printf("Alive: %d \n", u.getCurrentAlive());
             u.printUniverse();
+            u.renderUniverse(i + 1);
 
             try {
                 Thread.sleep(1000);

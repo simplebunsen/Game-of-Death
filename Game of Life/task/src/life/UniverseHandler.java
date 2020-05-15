@@ -11,10 +11,12 @@ public class UniverseHandler {
 
     boolean[][] universe;
     int universeSize;
+    GameOfLife gui;
 
     public UniverseHandler (int n, long s) {
         this.universe = new boolean[n][n];
         this.universeSize = n;
+        this.gui = new GameOfLife(universeSize);
 
         Random random;
         if (s == -1) random = new Random();
@@ -108,6 +110,20 @@ public class UniverseHandler {
             }
             System.out.println();
         }
+    }
+
+    public void renderUniverse(int gen) {
+        int rowNum = 0;
+        for (boolean[] row : universe) {
+            int spotNum = 0;
+            for (boolean spot : row) {
+                gui.editUniverseGUI(rowNum, spotNum, spot);
+                spotNum++;
+            }
+            rowNum++;
+        }
+        gui.editAliveGUI(getCurrentAlive());
+        gui.editGenerationGUI(gen);
     }
 
     public int getCurrentAlive() {
