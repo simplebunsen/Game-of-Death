@@ -5,53 +5,86 @@ import java.awt.*;
 
 //GUI
 public class GameOfLife extends JFrame {
-    private static final int GRID_GAP = 2;
+    private static final int GRID_GAP = 1;
     private JPanel[][] cells;
-    private JPanel labelPanel;
+    private JPanel infoPanel;
     private JLabel genLabel;
     private JLabel aliveLabel;
+    private JToggleButton pauseButton;
+    private JButton resetButton;
 
-    public GameOfLife(int universeSize) {
+    public GameOfLife() {
         super("Game Of Life");
+
+        int universeSize = UniverseHandler.universeSize;
+        System.out.println("UNIVERSE SIZE IN GOL: " + universeSize);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         if (universeSize >= 80) {
             add(new JLabel("Your universe is to big, I don't guarantee anything.."));
         }
-        setSize(universeSize * 25, universeSize * 25 + 25);
+
+        setSize(universeSize * 10 + 60, universeSize * 10);
         setLocationRelativeTo(null);
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        //setLayout(new BoxLayout(getContentPane(), BoxLayout.LINE_AXIS));
 
 
-        labelPanel = new JPanel();
-        labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.Y_AXIS));
-        add(labelPanel);
 
-        genLabel = new JLabel();
-        genLabel.setText("Generation #XX");
+        infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(infoPanel, BorderLayout.WEST);
+
+
+
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        infoPanel.add(buttonPanel);
+
+        pauseButton = new JToggleButton("pause");
+        pauseButton.setName("PlayToggleButton");
+        buttonPanel.add(pauseButton);
+
+        resetButton = new JButton("reset");
+        resetButton.setName("ResetButton");
+        buttonPanel.add(resetButton);
+
+        JPanel labelPanel = new JPanel();
+        labelPanel.setLayout(new GridLayout(2,1));
+        infoPanel.add(labelPanel);
+
+        genLabel = new JLabel("Generation #0", SwingConstants.LEFT);
         genLabel.setName("GenerationLabel");
         labelPanel.add(genLabel);
 
-        aliveLabel = new JLabel();
-        aliveLabel.setText("Alive: XX");
+        aliveLabel = new JLabel("Alive: 0", SwingConstants.LEFT);
         aliveLabel.setName("AliveLabel");
         labelPanel.add(aliveLabel);
 
 
-        JPanel universePanel = new JPanel();
-        universePanel.setLayout(new GridLayout(universeSize, universeSize, GRID_GAP, GRID_GAP));
-        universePanel.setBackground(Color.BLACK);
-        add(universePanel);
 
-        cells = new JPanel[universeSize][universeSize];
-        for (int row = 0; row < universeSize; row++) {
-            for (int spot = 0; spot < universeSize; spot++) {
-                JPanel cell = new JPanel();
-                cell.setBackground(Color.WHITE);
-                cells[row][spot] = cell;
-                universePanel.add(cell);
-            }
-        }
 
+
+
+
+//        JPanel universePanel = new JPanel();
+//        universePanel.setLayout(new GridLayout(universeSize, universeSize, GRID_GAP, GRID_GAP));
+//        universePanel.setBackground(Color.BLACK);
+//        add(universePanel);
+//
+//        cells = new JPanel[universeSize][universeSize];
+//        for (int row = 0; row < universeSize; row++) {
+//            for (int spot = 0; spot < universeSize; spot++) {
+//                JPanel cell = new JPanel();
+//                cell.setBackground(Color.WHITE);
+//                cell.setMinimumSize(new Dimension(1,1));
+//                cells[row][spot] = cell;
+//                universePanel.add(cell);
+//            }
+//        }
+//
 
         setVisible(true);
 //        JLabel test = new JLabel();
@@ -69,19 +102,5 @@ public class GameOfLife extends JFrame {
     }
     public void editAliveGUI(int targetAlive) {
         aliveLabel.setText("Alive: ".concat(String.valueOf(targetAlive)));
-    }
-}
-
-class Test {
-
-    public static void main(String[] args) throws InterruptedException {
-        GameOfLife GUI = new GameOfLife(25);
-
-        Thread.sleep(2000);
-        GUI.editUniverseGUI(3,4, true);
-        Thread.sleep(2000);
-        GUI.editGenerationGUI(552);
-        GUI.editAliveGUI(841);
-
     }
 }

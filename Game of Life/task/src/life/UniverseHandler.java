@@ -10,13 +10,13 @@ import java.util.Scanner;
 public class UniverseHandler {
 
     boolean[][] universe;
-    int universeSize;
+    public static int universeSize;
     GameOfLife gui;
 
     public UniverseHandler (int n, long s) {
         this.universe = new boolean[n][n];
         this.universeSize = n;
-        this.gui = new GameOfLife(universeSize);
+        this.gui = new GameOfLife();
 
         Random random;
         if (s == -1) random = new Random();
